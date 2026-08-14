@@ -15,7 +15,8 @@ export function toastsuccessmsg(message: any) {
 export const URL = {
   uaturl: "",
   productionurl: "",
-  localurl: "http://192.168.1.35:8001/",
+  // localurl: "https://api.amaarmechtech.com/",
+  localurl: "http://192.168.1.7:8001/",
 };
 
 //get the x-token if store in session
@@ -33,7 +34,7 @@ function Header(useHeader: any) {
           "x-token": xToken,
           apitoken: "2ed1b72407c91c22dc7bd2b729f67145",
           "Content-Type": "multipart/form-data",
-          "elevel": 0,
+          elevel: 0,
         },
       }
     : {
@@ -42,8 +43,7 @@ function Header(useHeader: any) {
           apitoken: "2ed1b72407c91c22dc7bd2b729f67145",
           "Content-Type": "application/json",
 
-            
-          "elevel": 0,
+          elevel: 0,
         },
       };
 }
@@ -55,13 +55,13 @@ function Header_delete(useHeader: any) {
         "x-token": xToken,
         apitoken: "2ed1b72407c91c22dc7bd2b729f67145",
         "Content-Type": "multipart/form-data",
-        "elevel": 0,
+        elevel: 0,
       }
     : {
         "x-token": xToken,
         apitoken: "2ed1b72407c91c22dc7bd2b729f67145",
         "Content-Type": "application/json",
-        "elevel": 0,
+        elevel: 0,
       };
 }
 
@@ -71,123 +71,128 @@ const Logout = () => {
 };
 
 export const Post = async (fileName: string, data: any, useHeader: any) => {
-    try {
-      const url = `${URL.localurl}${fileName}`;
-      const response = await axios.post(url, data, Header(useHeader));
-  
-      if (response.data.status === 401 || response.data.status === 403) {
-        Logout();
-      }
-  
-      return response;
-    } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        (error.response?.status === 401 || error.response?.status === 403)
-      ) {
-        Logout();
-      }
+  try {
+    const url = `${URL.localurl}${fileName}`;
+    const response = await axios.post(url, data, Header(useHeader));
 
-      throw error;
+    if (response.data.status === 401 || response.data.status === 403) {
+      Logout();
     }
-  };
-  
-  // API CALL for DELETE method
-  export const Delete = async (fileName: string, data: any, useHeader: any) => {
-    try {
-      const header = Header_delete(useHeader);
-      const url = `${URL.localurl}${fileName}`;
-      const response = await axios.delete(url, { data: data, headers: header });
-  
-      if (response.data.status === 401 || response.data.status === 403) {
-        Logout();
-      }
-  
-      return response;
-    } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        (error.response?.status === 401 || error.response?.status === 403)
-      ) {
-        Logout();
-      }
 
-      throw error;
+    return response;
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      (error.response?.status === 401 || error.response?.status === 403)
+    ) {
+      Logout();
     }
-  };
-  
-  // API CALL for PATCH method
-  export const Patch = async (fileName: string, data: any, useHeader: any) => {
-    try {
-      const url = `${URL.localurl}${fileName}`;
-      const response = await axios.patch(url, data, Header(useHeader));
-      console.log(response, "ppppsssss");
-  
-      if (response.data.status === 401 || response.data.status === 403) {
-        Logout();
-      }
-  
-      return response;
-    } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        (error.response?.status === 401 || error.response?.status === 403)
-      ) {
-        Logout();
-      }
 
-      throw error;
+    throw error;
+  }
+};
+
+// API CALL for DELETE method
+export const Delete = async (fileName: string, data: any, useHeader: any) => {
+  try {
+    const header = Header_delete(useHeader);
+    const url = `${URL.localurl}${fileName}`;
+    const response = await axios.delete(url, { data: data, headers: header });
+
+    if (response.data.status === 401 || response.data.status === 403) {
+      Logout();
     }
-  };
-  
-  // API CALL for GET method
-  export const Get = async (fileName: string, data: any, useHeader: any) => {
-    try {
-      const url = `${URL.localurl}${fileName}`;
-      const response = await axios.get(url, { params: data, ...Header(useHeader) });
-  
-      if (response.data.status === 401 || response.data.status === 403) {
-        Logout();
-      }
-  
-      return response;
-    } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        (error.response?.status === 401 || error.response?.status === 403)
-      ) {
-        Logout();
-      }
 
-      throw error;
+    return response;
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      (error.response?.status === 401 || error.response?.status === 403)
+    ) {
+      Logout();
     }
-  };
-  
-  // API CALL for PUT method
-  export const Put = async (fileName: string, data: any, useHeader: any) => {
-    try {
-      const url = `${URL.localurl}${fileName}`;
-      const response = await axios.put(url, data, Header(useHeader));
-      console.log(response, "ppppsssss");
-  
-      if (response.data.status === 401 || response.data.status === 403) {
-        Logout();
-      }
-  
-      return response;
-    } catch (error) {
-      if (
-        axios.isAxiosError(error) &&
-        (error.response?.status === 401 || error.response?.status === 403)
-      ) {
-        Logout();
-      }
 
-      throw error;
+    throw error;
+  }
+};
+
+// API CALL for PATCH method
+export const Patch = async (fileName: string, data: any, useHeader: any) => {
+  try {
+    const url = `${URL.localurl}${fileName}`;
+    const response = await axios.patch(url, data, Header(useHeader));
+    console.log(response, "ppppsssss");
+
+    if (response.data.status === 401 || response.data.status === 403) {
+      Logout();
     }
-  };
 
-export const formatDateDDMMYYYY = (value: string | null | undefined): string => {
+    return response;
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      (error.response?.status === 401 || error.response?.status === 403)
+    ) {
+      Logout();
+    }
+
+    throw error;
+  }
+};
+
+// API CALL for GET method
+export const Get = async (fileName: string, data: any, useHeader: any) => {
+  try {
+    const url = `${URL.localurl}${fileName}`;
+    const response = await axios.get(url, {
+      params: data,
+      ...Header(useHeader),
+    });
+
+    if (response.data.status === 401 || response.data.status === 403) {
+      Logout();
+    }
+
+    return response;
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      (error.response?.status === 401 || error.response?.status === 403)
+    ) {
+      Logout();
+    }
+
+    throw error;
+  }
+};
+
+// API CALL for PUT method
+export const Put = async (fileName: string, data: any, useHeader: any) => {
+  try {
+    const url = `${URL.localurl}${fileName}`;
+    const response = await axios.put(url, data, Header(useHeader));
+    console.log(response, "ppppsssss");
+
+    if (response.data.status === 401 || response.data.status === 403) {
+      Logout();
+    }
+
+    return response;
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      (error.response?.status === 401 || error.response?.status === 403)
+    ) {
+      Logout();
+    }
+
+    throw error;
+  }
+};
+
+export const formatDateDDMMYYYY = (
+  value: string | null | undefined,
+): string => {
   if (!value) return "—";
   const date = new Date(value);
   if (isNaN(date.getTime())) return "—";

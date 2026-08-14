@@ -26,6 +26,10 @@ import {
   UsersIcon,
   UserGroupIcon,
   CircleStackIcon,
+  ChatBubbleLeftRightIcon,
+  CurrencyDollarIcon,
+  IdentificationIcon,
+  MegaphoneIcon,
 } from "@heroicons/react/24/outline";
 import { ElementType } from "react";
 
@@ -57,16 +61,15 @@ export const navigationIcons: Record<string, ElementType> = {
   "master.bom": CubeTransparentIcon,
   "master.brand": BuildingLibraryIcon,
 
-  itemMaster: CubeIcon,
-  "itemMaster.list": CubeIcon,
+  accessoriesMaster: CubeIcon,
 
   leadMaster: UserGroupIcon,
   "leadMaster.list": UserGroupIcon,
 
   // User Master
-userMaster: UsersIcon,
-"user_master.createAccount": UserPlusIcon,
-"user_master.createEmployee": UsersIcon,
+  userMaster: UsersIcon,
+  "user_master.createAccount": UserPlusIcon,
+  "user_master.createEmployee": UsersIcon,
 
   // Purchase Master
   purchaseMaster: ShoppingCartIcon,
@@ -84,7 +87,7 @@ userMaster: UsersIcon,
   "enquiry_master.banker": BuildingLibraryIcon,
   "enquiry_master.finance": BanknotesIcon,
 
-    // Accounting Master
+  // Accounting Master
   accountingMaster: BanknotesIcon,
 
   "accounting_master.debitNote": DocumentTextIcon,
@@ -101,4 +104,12 @@ userMaster: UsersIcon,
   settings: SettingIcon,
   "settings.general": HiUserIcon,
   "settings.appearance": TbPalette,
+
+  followup: ChatBubbleLeftRightIcon,
+
+  salesMaster: CurrencyDollarIcon,
+
+  brokerMaster: IdentificationIcon,
+
+  integration: MegaphoneIcon,
 };

@@ -30,8 +30,9 @@ export function MenuItem({ data }: { data: NavigationTree  }) {
 
   return (
     <NavLink
-      to={path as string}
-      onClick={handleMenuItemClick}
+       to={path as string}
+  end
+  onClick={handleMenuItemClick}
       className={({ isActive }) =>
         clsx(
           "outline-hidden transition-colors duration-300 ease-in-out",

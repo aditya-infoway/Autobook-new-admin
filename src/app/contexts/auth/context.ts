@@ -18,6 +18,7 @@ export const AuthProvider = createContext<AuthContextType | null>(null);
 
 export const useAuthContext = () => {
   const context = useContext(AuthProvider);
-  if (!context) throw new Error("useAuthContext must be used within AuthProvider");
+  if (!context)
+    throw new Error("useAuthContext must be used within AuthProvider");
   return context;
 };

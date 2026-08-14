@@ -1,0 +1,918 @@
+import {
+  Dialog,
+  DialogPanel,
+  Transition,
+  TransitionChild,
+  Menu,
+  MenuButton,
+  MenuItems,
+  MenuItem,
+} from "@headlessui/react";
+import { Fragment, useState } from "react";
+import {
+  XMarkIcon,
+  EyeIcon,
+  FunnelIcon,
+  MagnifyingGlassIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PencilSquareIcon,
+  TrashIcon,
+  EllipsisHorizontalIcon,
+} from "@heroicons/react/24/outline";
+import { FaFilePdf, FaFileExcel } from "react-icons/fa";
+import { Button, Checkbox, Input } from "@/components/ui";
+import { Table, THead, TBody, Tr, Th, Td } from "@/components/ui/Table";
+import { Combobox } from "@/components/shared/form/Combobox";
+import { Listbox } from "@/components/shared/form/StyledListbox";
+
+// Static Data
+const employeeData = [
+  {
+    id: 1,
+    typeOfDepartment: "Sales",
+    branch: "Mumbai",
+    role: "Sales Executive",
+    employeeName: "Rohit Parab",
+    mobileNo: "9876543210",
+    alternateNo: "8765432109",
+    email: "rohit.parab@example.com",
+    createdBy: "Admin",
+    createdType: "Manual",
+    createdAt: "25 Jul 2026",
+    createdTime: "10:30 AM",
+  },
+  {
+    id: 2,
+    typeOfDepartment: "Service",
+    branch: "Pune",
+    role: "Service Manager",
+    employeeName: "Ankita Ghavanalkar",
+    mobileNo: "8765432109",
+    alternateNo: "7654321098",
+    email: "ankita.g@example.com",
+    createdBy: "Admin",
+    createdType: "Bulk Upload",
+    createdAt: "24 Jul 2026",
+    createdTime: "02:15 PM",
+  },
+  {
+    id: 3,
+    typeOfDepartment: "Accounts",
+    branch: "Bangalore",
+    role: "Accountant",
+    employeeName: "Rakesh Naik",
+    mobileNo: "7654321098",
+    alternateNo: "6543210987",
+    email: "rakesh.naik@example.com",
+    createdBy: "Manager",
+    createdType: "Manual",
+    createdAt: "23 Jul 2026",
+    createdTime: "09:45 AM",
+  },
+];
+
+const departmentOptions = [
+  { id: 1, name: "Sales" },
+  { id: 2, name: "Service" },
+  { id: 3, name: "Accounts" },
+  { id: 4, name: "HR" },
+  { id: 5, name: "Marketing" },
+  { id: 6, name: "Operations" },
+  { id: 7, name: "IT" },
+];
+
+const branchOptions = [
+  { id: 1, name: "Mumbai" },
+  { id: 2, name: "Pune" },
+  { id: 3, name: "Bangalore" },
+  { id: 4, name: "Delhi" },
+  { id: 5, name: "Chennai" },
+  { id: 6, name: "Hyderabad" },
+];
+
+const roleOptions = [
+  { id: 1, name: "Sales Executive" },
+  { id: 2, name: "Service Manager" },
+  { id: 3, name: "Accountant" },
+  { id: 4, name: "HR Manager" },
+  { id: 5, name: "Marketing Executive" },
+  { id: 6, name: "Operations Manager" },
+  { id: 7, name: "IT Support" },
+];
+
+const entriesOptions = [
+  { id: 10, name: "10" },
+  { id: 20, name: "20" },
+  { id: 30, name: "30" },
+  { id: 40, name: "40" },
+  { id: 50, name: "50" },
+  { id: 100, name: "100" },
+];
+
+export default function CreateEmployee() {
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [showViewDrawer, setShowViewDrawer] = useState(false);
+  const [viewItem, setViewItem] = useState<any>(null);
+  const [editId, setEditId] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [search, setSearch] = useState("");
+  const [selectedDepartmentFilter, setSelectedDepartmentFilter] =
+    useState<string>("All");
+  const [selectedBranchFilter, setSelectedBranchFilter] =
+    useState<string>("All");
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [showFilterBar, setShowFilterBar] = useState(false);
+
+  const employees = employeeData;
+
+  const [formData, setFormData] = useState({
+    typeOfDepartment: "",
+    branch: "",
+    role: "",
+    employeeName: "",
+    mobileNo: "",
+    alternateNo: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const filteredData = employees.filter((item) => {
+    const matchesSearch =
+      item.employeeName.toLowerCase().includes(search.toLowerCase()) ||
+      item.email.toLowerCase().includes(search.toLowerCase()) ||
+      item.mobileNo.includes(search);
+    const matchesDepartment =
+      selectedDepartmentFilter === "All" ||
+      item.typeOfDepartment === selectedDepartmentFilter;
+    const matchesBranch =
+      selectedBranchFilter === "All" || item.branch === selectedBranchFilter;
+    return matchesSearch && matchesDepartment && matchesBranch;
+  });
+
+  const totalItems = filteredData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleOpenAddDrawer = () => {
+    setEditId(null);
+    setFormData({
+      typeOfDepartment: "",
+      branch: "",
+      role: "",
+      employeeName: "",
+      mobileNo: "",
+      alternateNo: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+    setShowDrawer(true);
+  };
+
+  const handleOpenEditDrawer = (item: any) => {
+    setEditId(item.id);
+    setFormData({
+      typeOfDepartment: item.typeOfDepartment,
+      branch: item.branch,
+      role: item.role,
+      employeeName: item.employeeName,
+      mobileNo: item.mobileNo,
+      alternateNo: item.alternateNo || "",
+      email: item.email,
+      password: "",
+      confirmPassword: "",
+    });
+    setShowDrawer(true);
+  };
+
+  const handleView = (item: any) => {
+    setViewItem(item);
+    setShowViewDrawer(true);
+  };
+
+  const handleSave = () => {
+    setShowDrawer(false);
+  };
+
+  const handleDelete = (id: number) => {
+    alert(`Delete employee with ID: ${id}`);
+  };
+
+  const handleBulkDelete = () => {
+    alert(`Delete ${selectedIds.length} selected employees`);
+  };
+
+  const departmentFilterOptions = [
+    { id: "All", name: "All" },
+    ...Array.from(new Set(employees.map((c) => c.typeOfDepartment))).map(
+      (n) => ({
+        id: n,
+        name: n,
+      }),
+    ),
+  ];
+
+  const branchFilterOptions = [
+    { id: "All", name: "All" },
+    ...Array.from(new Set(employees.map((c) => c.branch))).map((n) => ({
+      id: n,
+      name: n,
+    })),
+  ];
+
+  const isAllPageSelected =
+    currentItems.length > 0 &&
+    currentItems.every((item) => selectedIds.includes(item.id));
+  const isSomePageSelected =
+    currentItems.some((item) => selectedIds.includes(item.id)) &&
+    !isAllPageSelected;
+
+  const handleClearSelection = () => {
+    setSelectedIds([]);
+  };
+
+  return (
+    <div className="relative min-h-screen space-y-6 p-4 pb-28 text-gray-900 md:p-6 dark:text-gray-100">
+      {/* Top Header */}
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900 md:text-2xl dark:text-white">
+            Employee List
+          </h1>
+          <p className="dark:text-dark-300 mt-1 text-sm text-gray-500">
+            Manage all employees from here
+          </p>
+        </div>
+
+       <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
+  {/* <button
+    type="button"
+    onClick={() => setShowFilterBar(!showFilterBar)}
+    className={`inline-flex items-center gap-1.5 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors ${
+      showFilterBar
+        ? "bg-primary-50 border-primary-200 text-primary-600 dark:bg-dark-600 dark:border-dark-500 dark:text-white"
+        : "dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
+    }`}
+  >
+    <FunnelIcon className="size-4.5" />
+    <span className="hidden sm:inline">Filter</span>
+  </button> */}
+
+  <button
+    type="button"
+    className="dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white text-sm font-medium text-gray-600 hover:bg-gray-50"
+  >
+    <FaFileExcel className="h-6 w-6 text-green-500" />
+  </button>
+
+  <button
+    type="button"
+    className="dark:bg-dark-800 dark:border-dark-500 dark:text-dark-200 flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white text-sm font-medium text-gray-600 hover:bg-gray-50"
+  >
+    <FaFilePdf className="h-6 w-6 text-red-500" />
+  </button>
+
+  <Button
+    color="primary"
+    onClick={handleOpenAddDrawer}
+    className="ml-auto whitespace-nowrap"
+  >
+    Add Employee
+  </Button>
+</div>
+      </div>
+
+      {/* Search */}
+      <div className="relative w-full max-w-md">
+        <MagnifyingGlassIcon className="absolute top-1/2 left-3 size-4.5 -translate-y-1/2 text-gray-400" />
+        <input
+          type="text"
+          placeholder="Search employee..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="dark:border-dark-500 dark:bg-dark-800 w-full rounded-lg border border-gray-300 bg-white py-2.5 pr-4 pl-10 text-sm outline-none"
+        />
+      </div>
+
+      {/* Filter Bar */}
+      {/* {showFilterBar && (
+        <div className="dark:bg-dark-700 dark:border-dark-500 animate-in fade-in slide-in-from-top-2 rounded-xl border border-gray-200 bg-white p-4 transition-all duration-150">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-1">
+              <span className="dark:text-dark-200 text-sm font-medium text-gray-700">
+                Department
+              </span>
+              <select
+                value={selectedDepartmentFilter}
+                onChange={(e) => {
+                  setSelectedDepartmentFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="dark:border-dark-500 dark:bg-dark-800 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none"
+              >
+                {departmentFilterOptions.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="dark:text-dark-200 text-sm font-medium text-gray-700">
+                Branch
+              </span>
+              <select
+                value={selectedBranchFilter}
+                onChange={(e) => {
+                  setSelectedBranchFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="dark:border-dark-500 dark:bg-dark-800 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none"
+              >
+                {branchFilterOptions.map((opt) => (
+                  <option key={opt.id} value={opt.id}>
+                    {opt.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      {/* Table */}
+      <div className="dark:bg-dark-800 dark:border-dark-700 rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-x-auto">
+          <Table
+            hoverable
+            className="w-full min-w-[800px] text-left [&_.table-th]:font-semibold"
+          >
+            <THead className="dark:bg-dark-700/60 dark:border-dark-600 border-b border-gray-200 bg-gray-100">
+              <Tr>
+                <Th className="w-12 py-3.5 text-center">
+                  <Checkbox
+                    className="size-4.5"
+                    color="error"
+                    checked={isAllPageSelected}
+                    indeterminate={isSomePageSelected}
+                    onChange={(e: any) => {
+                      if (isAllPageSelected || !e.target.checked) {
+                        const pageIds = currentItems.map((item) => item.id);
+                        setSelectedIds((prev) =>
+                          prev.filter((id) => !pageIds.includes(id)),
+                        );
+                      } else {
+                        const pageIds = currentItems.map((item) => item.id);
+                        setSelectedIds((prev) =>
+                          Array.from(new Set([...prev, ...pageIds])),
+                        );
+                      }
+                    }}
+                  />
+                </Th>
+                <Th className="w-16 py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  S.No
+                </Th>
+                <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Action
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Department
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Branch
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Role
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Employee Name
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Mobile No
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Alternate No
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Email
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Created By
+                </Th>
+                <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Created Type
+                </Th>
+              </Tr>
+            </THead>
+
+            <TBody className="dark:divide-dark-700 divide-y divide-gray-200">
+              {currentItems.map((item, index) => {
+                const isRowSelected = selectedIds.includes(item.id);
+                return (
+                  <Tr
+                    key={item.id}
+                    className={`${isRowSelected ? "dark:bg-dark-600/30 bg-gray-50/50" : ""} dark:hover:bg-dark-700/40 transition-colors hover:bg-gray-50/30`}
+                  >
+                    <Td className="py-4 text-center">
+                      <Checkbox
+                        className="size-4.5"
+                        checked={isRowSelected}
+                        onChange={() => {
+                          setSelectedIds((prev) =>
+                            prev.includes(item.id)
+                              ? prev.filter((id) => id !== item.id)
+                              : [...prev, item.id],
+                          );
+                        }}
+                      />
+                    </Td>
+                    <Td className="py-4 font-medium text-gray-500">
+                      {indexOfFirstItem + index + 1}
+                    </Td>
+                    <Td className="py-4 text-center">
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEditDrawer(item)}
+                        className="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                      >
+                        <PencilSquareIcon className="mr-1.5 size-3.5" />
+                        Edit
+                      </button>
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.typeOfDepartment}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.branch}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.role}
+                    </Td>
+                    <Td className="py-4 font-medium text-gray-900 dark:text-white">
+                      {item.employeeName}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.mobileNo}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.alternateNo || "-"}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.email}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.createdBy}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                          item.createdType === "Manual"
+                            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                            : "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400"
+                        }`}
+                      >
+                        {item.createdType}
+                      </span>
+                    </Td>
+                  </Tr>
+                );
+              })}
+
+              {currentItems.length === 0 && (
+                <Tr>
+                  <Td
+                    colSpan={12}
+                    className="py-12 text-center text-gray-400 dark:text-gray-500"
+                  >
+                    No employees found
+                  </Td>
+                </Tr>
+              )}
+            </TBody>
+          </Table>
+        </div>
+
+        {/* Pagination */}
+        {totalItems > 0 && (
+          <div className="dark:border-dark-700 dark:bg-dark-800 flex flex-col gap-4 rounded-b-xl border-t border-gray-200 bg-white px-4 py-4 md:flex-row md:items-center">
+            <div className="order-1 flex items-center justify-center gap-2 text-sm text-gray-600 md:w-1/3 md:justify-start dark:text-gray-400">
+              <span>Show</span>
+              <div className="w-20">
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => {
+                    setItemsPerPage(Number(e.target.value));
+                    setCurrentPage(1);
+                  }}
+                  className="dark:border-dark-600 dark:bg-dark-700 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-700 shadow-sm focus:outline-none dark:text-gray-200"
+                >
+                  {entriesOptions.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <span>entries</span>
+            </div>
+
+            <div className="order-2 flex justify-center md:w-1/3">
+              <div className="dark:border-dark-700 dark:bg-dark-800 inline-flex items-center space-x-1 rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="dark:hover:bg-dark-700 inline-flex size-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:hover:bg-transparent dark:text-gray-400"
+                >
+                  <ChevronLeftIcon className="size-4" />
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => setCurrentPage(page)}
+                      className={`inline-flex size-8 items-center justify-center rounded-md text-sm font-medium transition-colors ${
+                        page === currentPage
+                          ? "bg-primary-500 text-white"
+                          : "dark:hover:bg-dark-700 text-gray-600 hover:bg-gray-100 dark:text-gray-300"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ),
+                )}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="dark:hover:bg-dark-700 inline-flex size-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:hover:bg-transparent dark:text-gray-400"
+                >
+                  <ChevronRightIcon className="size-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="order-3 flex items-center justify-center text-sm text-gray-500 select-none md:w-1/3 md:justify-end dark:text-gray-400">
+              <span>
+                {totalItems === 0 ? 0 : indexOfFirstItem + 1} -{" "}
+                {Math.min(indexOfLastItem, totalItems)} of {totalItems} entries
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Bulk Actions */}
+      {selectedIds.length > 0 && (
+        <div className="animate-in fade-in slide-in-from-bottom-4 fixed bottom-6 left-1/2 z-50 w-full max-w-[95%] -translate-x-1/2 px-2 duration-200 sm:max-w-md md:max-w-lg lg:right-6 lg:left-auto lg:max-w-xl lg:translate-x-0">
+          <div className="dark:border-dark-500 dark:bg-dark-700/95 flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white/95 p-3 shadow-xl backdrop-blur sm:p-4">
+            <div className="dark:text-dark-200 text-xs font-medium whitespace-nowrap text-gray-600 sm:text-sm">
+              Selected{" "}
+              <span className="font-semibold text-gray-900 dark:text-white">
+                {selectedIds.length}
+              </span>{" "}
+              items
+            </div>
+            <div className="flex items-center gap-2">
+              <Menu as="div" className="relative">
+                <MenuButton className="flex h-8 cursor-pointer items-center gap-1 rounded-md border border-gray-300 bg-white px-3 text-xs font-semibold text-gray-700 shadow-sm hover:bg-gray-50 sm:h-9 sm:px-3.5">
+                  <span className="text-base leading-none font-bold sm:text-sm">
+                    ••• More
+                  </span>
+                </MenuButton>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <MenuItems className="dark:bg-dark-800 dark:border-dark-700 absolute right-0 bottom-full mb-1 w-44 rounded-lg border border-gray-200 bg-white p-1 shadow-lg ring-1 ring-black/5 focus:outline-none">
+                    <MenuItem>
+                      {({ active }) => (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            alert(`Print ${selectedIds.length} selected items`);
+                          }}
+                          className={`${
+                            active ? "dark:bg-dark-600 bg-gray-100" : ""
+                          } flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-xs font-medium text-gray-700 dark:text-gray-200`}
+                        >
+                          <FaFilePdf className="size-4 text-red-500" />
+                          Print
+                        </button>
+                      )}
+                    </MenuItem>
+                    <MenuItem>
+                      {({ active }) => (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            alert(
+                              `Export ${selectedIds.length} selected items`,
+                            );
+                          }}
+                          className={`${
+                            active ? "dark:bg-dark-600 bg-gray-100" : ""
+                          } flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-xs font-medium text-gray-700 dark:text-gray-200`}
+                        >
+                          <FaFileExcel className="size-4 text-green-500" />
+                          Export
+                        </button>
+                      )}
+                    </MenuItem>
+                  </MenuItems>
+                </Transition>
+              </Menu>
+
+              <Button
+                variant="outlined"
+                color="neutral"
+                onClick={() => setSelectedIds([])}
+                className="flex h-8 items-center gap-1.5 px-3 text-xs font-semibold shadow-sm sm:h-9 sm:px-3.5"
+              >
+                <XMarkIcon className="size-3.5 sm:size-4" />
+                <span>Cancel</span>
+              </Button>
+
+              <Button
+                variant="filled"
+                color="error"
+                onClick={handleBulkDelete}
+                className="flex h-8 items-center gap-1.5 px-3 text-xs font-semibold shadow-sm sm:h-9 sm:px-3.5"
+              >
+                <TrashIcon className="size-3.5 sm:size-4" />
+                <span>Delete</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add/Edit Drawer */}
+      <Transition appear show={showDrawer} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-[100]"
+          onClose={() => setShowDrawer(false)}
+        >
+          <TransitionChild
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-gray-900/50 backdrop-blur transition-opacity dark:bg-black/40" />
+          </TransitionChild>
+
+          <TransitionChild
+            as={Fragment}
+            enter="ease-out transform-gpu transition-transform duration-200"
+            enterFrom="translate-x-full"
+            enterTo="translate-x-0"
+            leave="ease-in transform-gpu transition-transform duration-200"
+            leaveFrom="translate-x-0"
+            leaveTo="translate-x-full"
+          >
+            <DialogPanel className="dark:bg-dark-700 fixed top-0 right-0 flex h-full w-full max-w-2xl transform-gpu flex-col bg-white shadow-2xl transition-transform duration-200">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSave();
+                }}
+                className="flex h-full flex-col"
+              >
+                <div className="bg-primary-500 flex items-center justify-between px-5 py-4">
+                  <h2 className="text-lg font-semibold text-white">
+                    {editId !== null ? "Edit Employee" : "Add Employee"}
+                  </h2>
+                  <Button
+                    onClick={() => setShowDrawer(false)}
+                    variant="flat"
+                    isIcon
+                    className="size-8 rounded-full text-white/80 hover:bg-white/10 hover:text-white"
+                    type="button"
+                  >
+                    <XMarkIcon className="size-5" />
+                  </Button>
+                </div>
+
+                <div className="grow overflow-y-auto p-5">
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Type of Department{" "}
+                        <span className="text-red-500">*</span>
+                      </label>
+                      <Combobox
+                        data={departmentOptions}
+                        displayField="name"
+                        value={departmentOptions.find(
+                          (opt) => opt.name === formData.typeOfDepartment,
+                        )}
+                        onChange={(selected: any) => {
+                          setFormData({
+                            ...formData,
+                            typeOfDepartment: selected?.name || "",
+                          });
+                        }}
+                        placeholder="Select Department"
+                        searchFields={["name"]}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Branch <span className="text-red-500">*</span>
+                      </label>
+                      <Combobox
+                        data={branchOptions}
+                        displayField="name"
+                        value={branchOptions.find(
+                          (opt) => opt.name === formData.branch,
+                        )}
+                        onChange={(selected: any) => {
+                          setFormData({
+                            ...formData,
+                            branch: selected?.name || "",
+                          });
+                        }}
+                        placeholder="Select Branch"
+                        searchFields={["name"]}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Role <span className="text-red-500">*</span>
+                      </label>
+                      <Combobox
+                        data={roleOptions}
+                        displayField="name"
+                        value={roleOptions.find(
+                          (opt) => opt.name === formData.role,
+                        )}
+                        onChange={(selected: any) => {
+                          setFormData({
+                            ...formData,
+                            role: selected?.name || "",
+                          });
+                        }}
+                        placeholder="Select Role"
+                        searchFields={["name"]}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Employee Name <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        type="text"
+                        placeholder="Enter employee name"
+                        value={formData.employeeName}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            employeeName: e.target.value,
+                          })
+                        }
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Mobile Number <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        type="text"
+                        placeholder="Enter mobile number"
+                        value={formData.mobileNo}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            mobileNo: e.target.value,
+                          })
+                        }
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Alternate Number
+                      </label>
+                      <Input
+                        type="text"
+                        placeholder="Enter alternate number"
+                        value={formData.alternateNo}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            alternateNo: e.target.value,
+                          })
+                        }
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        type="email"
+                        placeholder="Enter email address"
+                        value={formData.email}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            email: e.target.value,
+                          })
+                        }
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Password <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        type="password"
+                        placeholder="Enter password"
+                        value={formData.password}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            password: e.target.value,
+                          })
+                        }
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Confirm Password <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        type="password"
+                        placeholder="Confirm password"
+                        value={formData.confirmPassword}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            confirmPassword: e.target.value,
+                          })
+                        }
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="dark:border-dark-500 flex items-center justify-end gap-3 border-t border-gray-200 p-5">
+                  <Button
+                    variant="outlined"
+                    color="neutral"
+                    type="button"
+                    onClick={() => setShowDrawer(false)}
+                    className="h-10 w-1/2"
+                  >
+                    Cancel
+                  </Button>
+                  <Button color="primary" type="submit" className="h-10 w-1/2">
+                    {editId !== null ? "Update" : "Save"}
+                  </Button>
+                </div>
+              </form>
+            </DialogPanel>
+          </TransitionChild>
+        </Dialog>
+      </Transition>
+    </div>
+  );
+}

@@ -5,7 +5,13 @@ import { AuthProvider as AuthContext, AuthContextType } from "./context";
 import { User } from "@/@types/user";
 
 interface AuthAction {
-  type: "INITIALIZE" | "LOGIN_REQUEST" | "LOGIN_SUCCESS" | "LOGIN_ERROR" | "LOGOUT" | "SESSION_ESTABLISHED";
+  type:
+    | "INITIALIZE"
+    | "LOGIN_REQUEST"
+    | "LOGIN_SUCCESS"
+    | "LOGIN_ERROR"
+    | "LOGOUT"
+    | "SESSION_ESTABLISHED";
   payload?: Partial<AuthContextType>;
 }
 
@@ -39,7 +45,6 @@ const reducerHandlers: Record<
     errorMessage: null,
   }),
 
-  // ✅ CHANGE #1 — ab user bhi set hoga (pehle sirf pendingToken/pendingEmail set hote the)
   LOGIN_SUCCESS: (state, action) => ({
     ...state,
     isAuthenticated: false,
@@ -74,7 +79,10 @@ const reducerHandlers: Record<
   }),
 };
 
-const reducer = (state: AuthContextType, action: AuthAction): AuthContextType => {
+const reducer = (
+  state: AuthContextType,
+  action: AuthAction,
+): AuthContextType => {
   const handler = reducerHandlers[action.type];
   return handler ? handler(state, action) : state;
 };
@@ -96,13 +104,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setSession(authToken);
           const userStr = window.sessionStorage.getItem("user");
           const user = userStr ? JSON.parse(userStr) : null;
-          dispatch({ type: "INITIALIZE", payload: { isAuthenticated: true, user } });
+          dispatch({
+            type: "INITIALIZE",
+            payload: { isAuthenticated: true, user },
+          });
         } else {
-          dispatch({ type: "INITIALIZE", payload: { isAuthenticated: false, user: null } });
+          dispatch({
+            type: "INITIALIZE",
+            payload: { isAuthenticated: false, user: null },
+          });
         }
       } catch (err) {
         console.error(err);
-        dispatch({ type: "INITIALIZE", payload: { isAuthenticated: false, user: null } });
+        dispatch({
+          type: "INITIALIZE",
+          payload: { isAuthenticated: false, user: null },
+        });
       }
     };
     init();
@@ -120,7 +137,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  // STEP 1: login validate — OTP nahi
   const login = async (credentials: { email: string; password: string }) => {
     dispatch({ type: "LOGIN_REQUEST" });
     try {
@@ -135,7 +151,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw new Error(result.message || "Login failed");
       }
 
-      // ✅ CHANGE #2 — companyId/companyName bhi destructure kiya
       const { token, email, companyId, companyName } = result.data;
 
       window.sessionStorage.setItem(PENDING_TOKEN_KEY, token);
@@ -153,16 +168,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         },
       });
     } catch (err: any) {
-      const message = err?.response?.data?.message || err.message || "Login failed";
+      const message =
+        err?.response?.data?.message || err.message || "Login failed";
       toasterrormsg(message);
       dispatch({ type: "LOGIN_ERROR", payload: { errorMessage: message } });
       throw err;
     }
   };
 
-  // STEP 2: company select/create hone ke baad final auth
   const completeAuth = (companyId: string) => {
-    const token = state.pendingToken || window.sessionStorage.getItem(PENDING_TOKEN_KEY);
+    const token =
+      state.pendingToken || window.sessionStorage.getItem(PENDING_TOKEN_KEY);
 
     if (!token) {
       toasterrormsg("Session expired. Please login again.");
