@@ -159,12 +159,13 @@ export default function StockTransfer() {
             <THead className="dark:bg-dark-700/60 dark:border-dark-600 border-b border-gray-200 bg-gray-100">
               <Tr>
                 <Th className="w-12 text-center text-[11px]">Sr No.</Th>
-                <Th className="w-12 text-center text-[11px]">Action</Th>
+                
                 <Th className="text-[11px]">Stock Transfer ID</Th>
                 <Th className="text-[11px]">Date</Th>
                 <Th className="text-[11px]">Broker Name</Th>
                 <Th className="text-[11px]">Mobile No</Th>
                 <Th className="text-center text-[11px]">Qty</Th>
+                <Th className="w-12 text-center text-[11px]">Action</Th>
               </Tr>
             </THead>
 
@@ -177,15 +178,7 @@ export default function StockTransfer() {
                   <Td className="py-3 text-center text-[12px] font-medium text-gray-500">
                     {indexOfFirstItem + index + 1}
                   </Td>
-                  <Td className="py-3 text-center">
-                    <button
-                      onClick={() => handleView(item.id)}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-blue-500 text-blue-600 transition hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
-                      title="View Details"
-                    >
-                      <EyeIcon className="h-4 w-4" />
-                    </button>
-                  </Td>
+                
                   <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">
                     {item.stockTransferId}
                   </Td>
@@ -200,6 +193,15 @@ export default function StockTransfer() {
                   </Td>
                   <Td className="py-3 text-center text-[12px] font-medium text-gray-900 dark:text-white">
                     {item.qty}
+                  </Td>
+                    <Td className="py-3 text-center">
+                    <button
+                      onClick={() => handleView(item.id)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-blue-500 text-blue-600 transition hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
+                      title="View Details"
+                    >
+                      <EyeIcon className="h-4 w-4" />
+                    </button>
                   </Td>
                 </Tr>
               ))}

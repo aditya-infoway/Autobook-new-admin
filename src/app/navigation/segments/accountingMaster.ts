@@ -99,7 +99,7 @@ export const accountingMaster: NavigationTree = {
           type: "item",
           path: "/accounting-master/booking/bookingbalance",
           title: "Booking Balance",
-          transKey: "BookingB alance",
+          transKey: "Booking Balance",
         },
       ],
     },

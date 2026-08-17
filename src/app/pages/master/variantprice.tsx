@@ -428,9 +428,7 @@ export default function VariantPrice() {
                 <Th className="w-16 py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   S.No
                 </Th>
-                <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-                  Actions
-                </Th>
+               
                 <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Variant Name
                 </Th>
@@ -461,6 +459,9 @@ export default function VariantPrice() {
                 <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Ex-Warranty (2+8) (%)
                 </Th>
+                 <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Actions
+                </Th>
               </Tr>
             </THead>
 
@@ -488,7 +489,38 @@ export default function VariantPrice() {
                     <Td className="py-4 font-medium text-gray-500">
                       {indexOfFirstItem + index + 1}
                     </Td>
-                    <Td className="py-4 text-center">
+                   
+                    <Td className="py-4 font-medium text-gray-900 dark:text-white">
+                      {item.variantName}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      {item.model}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.purchasePrice.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.exShowroomPrice.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.insurance.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.roadSideAssistance.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.rtoCharge.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.exWarranty23.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.hypothecationCharge.toLocaleString()}
+                    </Td>
+                    <Td className="py-4 text-gray-600 dark:text-gray-400">
+                      ₹{item.exWarranty28.toLocaleString()}
+                    </Td>
+                     <Td className="py-4 text-center">
                       <Menu
                         as="div"
                         className="relative inline-block text-left"
@@ -544,36 +576,6 @@ export default function VariantPrice() {
                           </MenuItems>
                         </Transition>
                       </Menu>
-                    </Td>
-                    <Td className="py-4 font-medium text-gray-900 dark:text-white">
-                      {item.variantName}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      {item.model}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.purchasePrice.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.exShowroomPrice.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.insurance.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.roadSideAssistance.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.rtoCharge.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.exWarranty23.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.hypothecationCharge.toLocaleString()}
-                    </Td>
-                    <Td className="py-4 text-gray-600 dark:text-gray-400">
-                      ₹{item.exWarranty28.toLocaleString()}
                     </Td>
                   </Tr>
                 );

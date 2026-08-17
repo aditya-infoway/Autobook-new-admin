@@ -381,9 +381,7 @@ export default function CreateEmployee() {
                 <Th className="w-16 py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   S.No
                 </Th>
-                <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-                  Action
-                </Th>
+               
                 <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Department
                 </Th>
@@ -410,6 +408,9 @@ export default function CreateEmployee() {
                 </Th>
                 <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Created Type
+                </Th>
+                 <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Action
                 </Th>
               </Tr>
             </THead>
@@ -438,16 +439,7 @@ export default function CreateEmployee() {
                     <Td className="py-4 font-medium text-gray-500">
                       {indexOfFirstItem + index + 1}
                     </Td>
-                    <Td className="py-4 text-center">
-                      <button
-                        type="button"
-                        onClick={() => handleOpenEditDrawer(item)}
-                        className="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-                      >
-                        <PencilSquareIcon className="mr-1.5 size-3.5" />
-                        Edit
-                      </button>
-                    </Td>
+                  
                     <Td className="py-4 text-gray-600 dark:text-gray-400">
                       {item.typeOfDepartment}
                     </Td>
@@ -482,6 +474,16 @@ export default function CreateEmployee() {
                       >
                         {item.createdType}
                       </span>
+                    </Td>
+                      <Td className="py-4 text-center">
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEditDrawer(item)}
+                        className="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+                      >
+                        <PencilSquareIcon className="mr-1.5 size-3.5" />
+                        Edit
+                      </button>
                     </Td>
                   </Tr>
                 );

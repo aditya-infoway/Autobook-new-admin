@@ -338,9 +338,7 @@ export default function PurchaseRegister() {
                 <Th className="w-16 py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   S.No
                 </Th>
-                <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-                  Action
-                </Th>
+               
                 <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Purchase Date
                 </Th>
@@ -392,6 +390,9 @@ export default function PurchaseRegister() {
                 <Th className="py-3.5 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
                   Status
                 </Th>
+                 <Th className="w-20 py-3.5 text-center text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                  Action
+                </Th>
               </Tr>
             </THead>
 
@@ -419,27 +420,7 @@ export default function PurchaseRegister() {
                     <Td className="py-4 font-medium text-gray-500">
                       {indexOfFirstItem + index + 1}
                     </Td>
-                    <Td className="py-4 text-center">
-                      {item.isInward ? (
-                        // Inward Action: Down Arrow
-                        <button
-                          onClick={() => handleInwardAction(item)}
-                          className="inline-flex size-8 items-center justify-center rounded-lg border border-gray-300 text-gray-600 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
-                          title="Inward"
-                        >
-                          <ChevronDownIcon className="size-4.5" />
-                        </button>
-                      ) : (
-                        // Normal Action: Edit (Pencil)
-                        <button
-                          
-                          className="inline-flex size-8 items-center justify-center rounded-lg border border-gray-300 text-gray-600 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
-                          title="Edit"
-                        >
-                          <PencilSquareIcon className="size-4.5" />
-                        </button>
-                      )}
-                    </Td>
+                  
                     <Td className="py-4 text-gray-600 dark:text-gray-400">
                       {item.purchaseDate}
                     </Td>
@@ -498,6 +479,27 @@ export default function PurchaseRegister() {
                       >
                         {item.status}
                       </span>
+                    </Td>
+                      <Td className="py-4 text-center">
+                      {item.isInward ? (
+                        // Inward Action: Down Arrow
+                        <button
+                          onClick={() => handleInwardAction(item)}
+                          className="inline-flex size-8 items-center justify-center rounded-lg border border-gray-300 text-gray-600 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
+                          title="Inward"
+                        >
+                          <ChevronDownIcon className="size-4.5" />
+                        </button>
+                      ) : (
+                        // Normal Action: Edit (Pencil)
+                        <button
+                          
+                          className="inline-flex size-8 items-center justify-center rounded-lg border border-gray-300 text-gray-600 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
+                          title="Edit"
+                        >
+                          <PencilSquareIcon className="size-4.5" />
+                        </button>
+                      )}
                     </Td>
                   </Tr>
                 );

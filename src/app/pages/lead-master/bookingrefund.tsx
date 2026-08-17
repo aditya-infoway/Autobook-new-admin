@@ -7,10 +7,15 @@ import {
   ChevronRightIcon,
   ArrowPathIcon,
   XMarkIcon,
-  EyeIcon 
+  EyeIcon,
 } from "@heroicons/react/24/outline";
 import { FaFilePdf, FaFileExcel } from "react-icons/fa";
-import { Dialog, DialogPanel, DialogTitle, Transition } from "@headlessui/react";
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+} from "@headlessui/react";
 import { Table, THead, TBody, Tr, Th, Td } from "@/components/ui/Table";
 import { Combobox } from "@/components/shared/form/Combobox";
 import { DatePicker } from "@/components/shared/form/Datepicker";
@@ -136,16 +141,15 @@ function RefundDrawer({
               >
                 <DialogPanel className="pointer-events-auto w-screen max-w-full transform transition-all duration-300 md:max-w-lg">
                   <div className="flex h-full max-h-screen flex-col bg-white shadow-xl dark:bg-gray-800">
-                    
                     {/* Header - Fixed */}
-                    <div className="flex-shrink-0 flex items-center justify-between bg-primary-600 border-b border-gray-200 px-4 py-4 dark:border-gray-700">
-                      <DialogTitle className="text-base font-semibold leading-6 text-white dark:text-white">
+                    <div className="bg-primary-600 flex flex-shrink-0 items-center justify-between border-b border-gray-200 px-4 py-4 dark:border-gray-700">
+                      <DialogTitle className="text-base leading-6 font-semibold text-white dark:text-white">
                         Refund Booking #{booking?.qNo}
                       </DialogTitle>
                       <button
                         type="button"
                         onClick={onClose}
-                        className="relative rounded-md bg-white text-primary-400 hover:text-gray-500 focus:outline-none dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white"
+                        className="text-primary-400 relative rounded-md bg-white hover:text-gray-500 focus:outline-none dark:bg-gray-800 dark:text-gray-300 dark:hover:text-white"
                       >
                         <span className="absolute -inset-2.5" />
                         <span className="sr-only">Close panel</span>
@@ -209,13 +213,16 @@ function RefundDrawer({
                               value=""
                               onChange={() => {}}
                               placeholder="DD-MM-YYYY"
-                              options={{ dateFormat: "d-m-Y", disableMobile: true }}
+                              options={{
+                                dateFormat: "d-m-Y",
+                                disableMobile: true,
+                              }}
                             />
                           </div>
                         </div>
 
                         {/* Dotted Border for Opp. Account & Amount */}
-                        <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 space-y-4">
+                        <div className="space-y-4 rounded-lg border-2 border-dashed border-gray-300 p-4 dark:border-gray-600">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                               Opp. Account
@@ -235,7 +242,7 @@ function RefundDrawer({
                             <input
                               type="number"
                               placeholder="Enter Amount"
-                              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+                              className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700"
                             />
                           </div>
                         </div>
@@ -248,19 +255,26 @@ function RefundDrawer({
                                 Mode
                               </label>
                               <div className="mt-1 flex flex-wrap gap-4">
-                                {["NEFT", "RTGS", "IMPS", "CHEQUE", "UPI"].map((mode) => (
-                                  <label key={mode} className="flex cursor-pointer items-center gap-2 text-sm">
-                                    <input
-                                      type="radio"
-                                      name="bankMode"
-                                      value={mode}
-                                      checked={bankMode === mode}
-                                      onChange={() => handleBankModeChange(mode)}
-                                      className="accent-blue-600"
-                                    />
-                                    {mode}
-                                  </label>
-                                ))}
+                                {["NEFT", "RTGS", "IMPS", "CHEQUE", "UPI"].map(
+                                  (mode) => (
+                                    <label
+                                      key={mode}
+                                      className="flex cursor-pointer items-center gap-2 text-sm"
+                                    >
+                                      <input
+                                        type="radio"
+                                        name="bankMode"
+                                        value={mode}
+                                        checked={bankMode === mode}
+                                        onChange={() =>
+                                          handleBankModeChange(mode)
+                                        }
+                                        className="accent-blue-600"
+                                      />
+                                      {mode}
+                                    </label>
+                                  ),
+                                )}
                               </div>
                             </div>
 
@@ -275,7 +289,7 @@ function RefundDrawer({
                                     <input
                                       type="text"
                                       placeholder="Enter Cheque No"
-                                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+                                      className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700"
                                     />
                                   </div>
                                   <div>
@@ -286,7 +300,10 @@ function RefundDrawer({
                                       value=""
                                       onChange={() => {}}
                                       placeholder="DD-MM-YYYY"
-                                      options={{ dateFormat: "d-m-Y", disableMobile: true }}
+                                      options={{
+                                        dateFormat: "d-m-Y",
+                                        disableMobile: true,
+                                      }}
                                     />
                                   </div>
                                 </div>
@@ -298,7 +315,10 @@ function RefundDrawer({
                                     value=""
                                     onChange={() => {}}
                                     placeholder="DD-MM-YYYY"
-                                    options={{ dateFormat: "d-m-Y", disableMobile: true }}
+                                    options={{
+                                      dateFormat: "d-m-Y",
+                                      disableMobile: true,
+                                    }}
                                   />
                                 </div>
                               </div>
@@ -314,18 +334,18 @@ function RefundDrawer({
                           <textarea
                             rows={3}
                             placeholder="Enter narration..."
-                            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
+                            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700"
                           />
                         </div>
                       </div>
                     </div>
 
                     {/* Footer Actions - Fixed */}
-                    <div className="flex-shrink-0 flex gap-2 border-t border-gray-200 px-4 py-4 dark:border-gray-700 sm:justify-end sm:gap-3">
+                    <div className="flex flex-shrink-0 gap-2 border-t border-gray-200 px-4 py-4 sm:justify-end sm:gap-3 dark:border-gray-700">
                       <button
                         type="button"
                         onClick={onClose}
-                        className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 sm:flex-none sm:min-w-[120px]"
+                        className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 sm:min-w-[120px] sm:flex-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                       >
                         Cancel
                       </button>
@@ -335,7 +355,7 @@ function RefundDrawer({
                           console.log("Refund submitted");
                           onClose();
                         }}
-                        className="flex-1 rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-primary-700 sm:flex-none sm:min-w-[120px]"
+                        className="bg-primary-600 hover:bg-primary-700 flex-1 rounded-lg px-4 py-2.5 text-sm font-medium text-white sm:min-w-[120px] sm:flex-none"
                       >
                         Submit Refund
                       </button>
@@ -371,11 +391,9 @@ export default function BookingRefund() {
     setIsDrawerOpen(true);
   };
 
-
   const handleViewHistory = (item: any) => {
-
-  navigate(`/accounting-master/booking/paymenthistory/${item.id}`);
-};
+    navigate(`/accounting-master/booking/paymenthistory/${item.id}`);
+  };
 
   // Filter and Pagination Logic
   const filteredData = STATIC_BOOKINGS.filter((item) => {
@@ -407,32 +425,32 @@ export default function BookingRefund() {
           </p>
         </div>
 
-       <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
-  {/* Export Excel */}
-  <button
-    title="Export Excel"
-    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-emerald-50"
-  >
-    <FaFileExcel className="h-6 w-6 text-emerald-600" />
-  </button>
+        <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
+          {/* Export Excel */}
+          <button
+            title="Export Excel"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-emerald-50"
+          >
+            <FaFileExcel className="h-6 w-6 text-emerald-600" />
+          </button>
 
-  {/* Export PDF */}
-  <button
-    title="Export PDF"
-    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-red-50"
-  >
-    <FaFilePdf className="h-6 w-6 text-red-600" />
-  </button>
+          {/* Export PDF */}
+          <button
+            title="Export PDF"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-red-50"
+          >
+            <FaFilePdf className="h-6 w-6 text-red-600" />
+          </button>
 
-  {/* Refresh */}
-  <button
-    title="Refresh"
-    onClick={handleRefresh}
-    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-gray-100"
-  >
-    <ArrowPathIcon className="h-6 w-6 text-gray-600" />
-  </button>
-</div>
+          {/* Refresh */}
+          <button
+            title="Refresh"
+            onClick={handleRefresh}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-gray-100"
+          >
+            <ArrowPathIcon className="h-6 w-6 text-gray-600" />
+          </button>
+        </div>
       </div>
 
       {/* Search */}
@@ -450,15 +468,14 @@ export default function BookingRefund() {
         />
       </div>
 
-   
-
       {/* Table */}
       <div className="dark:bg-dark-800 dark:border-dark-700 rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <Table className="w-full min-w-[1400px]">
             <THead className="dark:bg-dark-700/60 dark:border-dark-600 border-b border-gray-200 bg-gray-100">
               <Tr>
-                <Th className="w-14 text-center text-[11px]">Action</Th>
+
+                <Th className="text-[11px]">SR NO</Th>
                 <Th className="text-[11px]">Lead Date</Th>
                 <Th className="text-[11px]">Q. No</Th>
                 <Th className="text-[11px]">DMS Enquiry No</Th>
@@ -472,14 +489,72 @@ export default function BookingRefund() {
                 <Th className="text-[11px]">Variant</Th>
                 <Th className="text-[11px]">Colour</Th>
                 <Th className="text-[11px]">R-Count</Th>
-                <Th className="text-[11px] text-right">Received Amount</Th>
+                <Th className="text-right text-[11px]">Received Amount</Th>
                 <Th className="text-[11px]">Payment History</Th>
+                <Th className="w-14 text-center text-[11px]">Action</Th>
               </Tr>
             </THead>
 
             <TBody className="dark:divide-dark-700 divide-y divide-gray-200">
               {currentItems.map((item, index) => (
-                <Tr key={item.id} className="dark:hover:bg-dark-700/40 transition-colors hover:bg-gray-50/30 align-middle">
+                <Tr
+                  key={item.id}
+                  className="dark:hover:bg-dark-700/40 align-middle transition-colors hover:bg-gray-50/30"
+                >
+                  <Td className="px-1 py-2 text-center align-middle text-[11px] font-medium">
+                    {(currentPage - 1) * itemsPerPage + index + 1}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.leadDate}
+                  </Td>
+                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">
+                    {item.qNo}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.dmsEnquiryNo}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.dmsEnquiryDate}
+                  </Td>
+                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">
+                    {item.customerName}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.contact}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.city}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.createdBy}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.ageLead}
+                  </Td>
+                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">
+                    {item.model}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.variant}
+                  </Td>
+                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.colour}
+                  </Td>
+                  <Td className="py-4 text-center text-[12px] font-medium text-gray-900 dark:text-white">
+                    {item.rCount}
+                  </Td>
+                  <Td className="py-4 text-right text-[12px] font-medium text-gray-900 dark:text-white">
+                    ₹{item.receivedAmount}
+                  </Td>
+                  <Td className="py-4 text-center">
+                    <button
+                      onClick={() => handleViewHistory(item)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-blue-500 text-blue-600 transition hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
+                      title="View Payment History"
+                    >
+                      <EyeIcon className="h-4 w-4" />
+                    </button>
+                  </Td>
                   <Td className="py-4 text-center">
                     <button
                       onClick={() => handleActionClick(item)}
@@ -489,34 +564,14 @@ export default function BookingRefund() {
                       <ArrowPathIcon className="h-4 w-4" />
                     </button>
                   </Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.leadDate}</Td>
-                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">{item.qNo}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.dmsEnquiryNo}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.dmsEnquiryDate}</Td>
-                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">{item.customerName}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.contact}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.city}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.createdBy}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.ageLead}</Td>
-                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">{item.model}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.variant}</Td>
-                  <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">{item.colour}</Td>
-                  <Td className="py-4 text-[12px] text-center font-medium text-gray-900 dark:text-white">{item.rCount}</Td>
-                  <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white text-right">₹{item.receivedAmount}</Td>
-                 <Td className="py-4 text-center">
-  <button
-    onClick={() => handleViewHistory(item)}
-    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-blue-500 text-blue-600 transition hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
-    title="View Payment History"
-  >
-    <EyeIcon className="h-4 w-4" />
-  </button>
-</Td>
                 </Tr>
               ))}
               {currentItems.length === 0 && (
                 <Tr>
-                  <Td colSpan={16} className="py-12 text-center text-gray-400 dark:text-gray-500">
+                  <Td
+                    colSpan={16}
+                    className="py-12 text-center text-gray-400 dark:text-gray-500"
+                  >
                     No refund records found
                   </Td>
                 </Tr>
@@ -553,29 +608,35 @@ export default function BookingRefund() {
               <div className="dark:border-dark-700 dark:bg-dark-800 inline-flex items-center space-x-1 rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
                 <button
                   type="button"
-                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
                   disabled={currentPage === 1}
                   className="dark:hover:bg-dark-700 inline-flex size-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:hover:bg-transparent dark:text-gray-400"
                 >
                   <ChevronLeftIcon className="size-4" />
                 </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    type="button"
-                    onClick={() => setCurrentPage(page)}
-                    className={`inline-flex size-8 items-center justify-center rounded-md text-sm font-medium transition-colors ${
-                      page === currentPage
-                        ? "bg-primary-500 text-white"
-                        : "dark:hover:bg-dark-700 text-gray-600 hover:bg-gray-100 dark:text-gray-300"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => setCurrentPage(page)}
+                      className={`inline-flex size-8 items-center justify-center rounded-md text-sm font-medium transition-colors ${
+                        page === currentPage
+                          ? "bg-primary-500 text-white"
+                          : "dark:hover:bg-dark-700 text-gray-600 hover:bg-gray-100 dark:text-gray-300"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ),
+                )}
                 <button
                   type="button"
-                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
                   disabled={currentPage === totalPages}
                   className="dark:hover:bg-dark-700 inline-flex size-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:hover:bg-transparent dark:text-gray-400"
                 >

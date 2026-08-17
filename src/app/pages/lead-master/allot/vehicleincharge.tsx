@@ -125,7 +125,7 @@ export default function VehicleIncharge() {
 
   const handleSelectRow = (id: number) => {
     setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -142,32 +142,32 @@ export default function VehicleIncharge() {
           </p>
         </div>
 
-      <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
-  {/* Export Excel */}
-  <button
-    title="Export Excel"
-    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-emerald-50"
-  >
-    <FaFileExcel className="h-6 w-6 text-emerald-600" />
-  </button>
+        <div className="flex flex-wrap items-center gap-2 sm:flex-nowrap">
+          {/* Export Excel */}
+          <button
+            title="Export Excel"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-emerald-50"
+          >
+            <FaFileExcel className="h-6 w-6 text-emerald-600" />
+          </button>
 
-  {/* Export PDF */}
-  <button
-    title="Export PDF"
-    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-red-50"
-  >
-    <FaFilePdf className="h-6 w-6 text-red-600" />
-  </button>
+          {/* Export PDF */}
+          <button
+            title="Export PDF"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-red-50"
+          >
+            <FaFilePdf className="h-6 w-6 text-red-600" />
+          </button>
 
-  {/* Refresh */}
-  <button
-    title="Refresh"
-    onClick={handleRefresh}
-    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-gray-100"
-  >
-    <ArrowPathIcon className="h-6 w-6 text-gray-600" />
-  </button>
-</div>
+          {/* Refresh */}
+          <button
+            title="Refresh"
+            onClick={handleRefresh}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-200 bg-white shadow-sm transition hover:bg-gray-100"
+          >
+            <ArrowPathIcon className="h-6 w-6 text-gray-600" />
+          </button>
+        </div>
       </div>
 
       {/* Search */}
@@ -223,7 +223,7 @@ export default function VehicleIncharge() {
                     key={item.id}
                     className={`${
                       isRowSelected ? "dark:bg-dark-600/30 bg-gray-50/50" : ""
-                    } dark:hover:bg-dark-700/40 transition-colors hover:bg-gray-50/30 align-middle`}
+                    } dark:hover:bg-dark-700/40 align-middle transition-colors hover:bg-gray-50/30`}
                   >
                     <Td className="py-4 text-center">
                       <Checkbox
@@ -232,7 +232,7 @@ export default function VehicleIncharge() {
                         onChange={() => handleSelectRow(item.id)}
                       />
                     </Td>
-                    <Td className="py-4 text-[12px] text-gray-500 text-center font-medium">
+                    <Td className="py-4 text-center text-[12px] font-medium text-gray-500">
                       {indexOfFirstItem + index + 1}
                     </Td>
                     <Td className="py-4 text-[12px] font-medium text-gray-900 dark:text-white">
@@ -265,7 +265,7 @@ export default function VehicleIncharge() {
                     <Td className="py-4 text-[12px] text-gray-700 dark:text-gray-300">
                       {item.chassisNo}
                     </Td>
-                    
+
                     {/* ACTION COLUMN - Check Icon Only */}
                     <Td className="py-4 text-center">
                       <button
@@ -276,7 +276,7 @@ export default function VehicleIncharge() {
                         <CheckIcon className="h-4 w-4" />
                       </button>
                     </Td>
-                    
+
                     {/* STATUS COLUMN */}
                     <Td className="py-4 text-center">
                       <span
@@ -284,8 +284,8 @@ export default function VehicleIncharge() {
                           item.status === "Completed"
                             ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                             : item.status === "In Progress"
-                            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                            : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                              ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                              : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
                         }`}
                       >
                         {item.status}
@@ -296,7 +296,10 @@ export default function VehicleIncharge() {
               })}
               {currentItems.length === 0 && (
                 <Tr>
-                  <Td colSpan={14} className="py-12 text-center text-gray-400 dark:text-gray-500">
+                  <Td
+                    colSpan={14}
+                    className="py-12 text-center text-gray-400 dark:text-gray-500"
+                  >
                     No records found
                   </Td>
                 </Tr>
@@ -333,29 +336,35 @@ export default function VehicleIncharge() {
               <div className="dark:border-dark-700 dark:bg-dark-800 inline-flex items-center space-x-1 rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
                 <button
                   type="button"
-                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
                   disabled={currentPage === 1}
                   className="dark:hover:bg-dark-700 inline-flex size-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:hover:bg-transparent dark:text-gray-400"
                 >
                   <ChevronLeftIcon className="size-4" />
                 </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    type="button"
-                    onClick={() => setCurrentPage(page)}
-                    className={`inline-flex size-8 items-center justify-center rounded-md text-sm font-medium transition-colors ${
-                      page === currentPage
-                        ? "bg-primary-500 text-white"
-                        : "dark:hover:bg-dark-700 text-gray-600 hover:bg-gray-100 dark:text-gray-300"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => setCurrentPage(page)}
+                      className={`inline-flex size-8 items-center justify-center rounded-md text-sm font-medium transition-colors ${
+                        page === currentPage
+                          ? "bg-primary-500 text-white"
+                          : "dark:hover:bg-dark-700 text-gray-600 hover:bg-gray-100 dark:text-gray-300"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ),
+                )}
                 <button
                   type="button"
-                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
                   disabled={currentPage === totalPages}
                   className="dark:hover:bg-dark-700 inline-flex size-8 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 disabled:opacity-40 disabled:hover:bg-transparent dark:text-gray-400"
                 >

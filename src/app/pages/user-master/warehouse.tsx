@@ -702,7 +702,7 @@ export default function Warehouse() {
             <THead className="dark:bg-dark-700/60 dark:border-dark-600 border-b border-gray-200 bg-gray-100">
               <Tr>
                 <Th className="w-12 text-center text-[11px]">SR NO.</Th>
-                <Th className="w-20 text-center text-[11px]">Action</Th>
+                
                 <Th className="text-[11px]">Warehouse Code</Th>
                 <Th className="text-[11px]">Warehouse Name</Th>
                 <Th className="text-[11px]">Owner Name</Th>
@@ -716,6 +716,7 @@ export default function Warehouse() {
                 <Th className="text-[11px]">District</Th>
                 <Th className="text-[11px]">City</Th>
                 <Th className="text-[11px]">Area</Th>
+                <Th className="w-20 text-center text-[11px]">Action</Th>
               </Tr>
             </THead>
 
@@ -726,7 +727,21 @@ export default function Warehouse() {
                     {indexOfFirstItem + index + 1}
                   </Td>
                   
-                  {/* Action Column - Dropdown Menu */}
+                
+                  <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">{item.warehouseCode}</Td>
+                  <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">{item.warehouseName}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.ownerName}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.mobileNo}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.gmailId}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.address1}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.address2}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.gstNo}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.country}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.state}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.district}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.city}</Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.area}</Td>
+                    {/* Action Column - Dropdown Menu */}
                   <Td className="py-3 text-center">
                     <Menu as="div" className="relative inline-block text-left">
                       <MenuButton className="dark:hover:bg-dark-600 dark:text-dark-200 inline-flex size-7 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100">
@@ -782,19 +797,6 @@ export default function Warehouse() {
                     </Menu>
                   </Td>
 
-                  <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">{item.warehouseCode}</Td>
-                  <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">{item.warehouseName}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.ownerName}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.mobileNo}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.gmailId}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.address1}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.address2}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.gstNo}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.country}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.state}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.district}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.city}</Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">{item.area}</Td>
                 </Tr>
               ))}
               {currentItems.length === 0 && (

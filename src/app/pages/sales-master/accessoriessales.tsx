@@ -236,10 +236,11 @@ export default function AccessoriesSales() {
                 <Th className="text-right text-[11px]">Total Profit</Th>
                 <Th className="text-[11px]">Invoice No</Th>
                 <Th className="text-[11px]">Invoice Date</Th>
-                <Th className="w-20 text-center text-[11px]">Action</Th>
+              
                 <Th className="text-center text-[11px]">Invoice</Th>
                 <Th className="text-[11px]">Created By</Th>
                 <Th className="text-[11px]">Created Type</Th>
+                  <Th className="w-20 text-center text-[11px]">Action</Th>
               </Tr>
             </THead>
 
@@ -286,7 +287,25 @@ export default function AccessoriesSales() {
                     {item.invoiceDate}
                   </Td>
 
-                  {/* Action Column - Dropdown Menu */}
+              
+                  {/* Invoice Column - View Button */}
+                  <Td className="py-3 text-center">
+                    <button
+                      onClick={() => handleViewInvoice(item.id)}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-blue-500 text-blue-600 transition hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
+                      title="View Invoice"
+                    >
+                      <EyeIcon className="h-4 w-4" />
+                    </button>
+                  </Td>
+
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.createdBy}
+                  </Td>
+                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                    {item.createdType}
+                  </Td>
+                      {/* Action Column - Dropdown Menu */}
                   <Td className="py-3 text-center">
                     <Menu as="div" className="relative inline-block text-left">
                       <MenuButton className="dark:hover:bg-dark-600 dark:text-dark-200 inline-flex size-7 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100">
@@ -342,23 +361,6 @@ export default function AccessoriesSales() {
                     </Menu>
                   </Td>
 
-                  {/* Invoice Column - View Button */}
-                  <Td className="py-3 text-center">
-                    <button
-                      onClick={() => handleViewInvoice(item.id)}
-                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-blue-500 text-blue-600 transition hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
-                      title="View Invoice"
-                    >
-                      <EyeIcon className="h-4 w-4" />
-                    </button>
-                  </Td>
-
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                    {item.createdBy}
-                  </Td>
-                  <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                    {item.createdType}
-                  </Td>
                 </Tr>
               ))}
               {currentItems.length === 0 && (

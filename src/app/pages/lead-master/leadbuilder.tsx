@@ -549,7 +549,7 @@ export default function LeadBuilder() {
           <Table className="w-full min-w-[1600px] border-collapse">
             <THead className="dark:border-dark-600 dark:bg-dark-700/60 border-b border-gray-200 bg-gray-100">
               <Tr>
-                <Th className="w-8 text-center text-[10px]">#</Th>
+                <Th className="w-8 text-center text-[10px]">SR NO</Th>
                 <Th className="min-w-[180px] text-[11px]">Quotation No</Th>
                 <Th className="min-w-[180px] text-[11px]">Customer Detail</Th>
                 <Th className="min-w-[180px] text-[11px]">Vehicle Detail</Th>

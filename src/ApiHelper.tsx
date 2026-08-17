@@ -16,7 +16,7 @@ export const URL = {
   uaturl: "",
   productionurl: "",
   // localurl: "https://api.amaarmechtech.com/",
-  localurl: "http://192.168.1.7:8001/",
+  localurl: "http://192.168.1.10:8001/",
 };
 
 //get the x-token if store in session

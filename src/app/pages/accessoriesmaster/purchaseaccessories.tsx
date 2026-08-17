@@ -222,7 +222,7 @@ export default function PurchaseAccessories() {
                   />
                 </Th>
                 <Th className="w-12 text-center text-[11px]">SR NO.</Th>
-                <Th className="w-16 text-center text-[11px]">Action</Th>
+               
                 <Th className="text-[11px]">Purchase Date</Th>
                 <Th className="text-[11px]">Terms</Th>
                 <Th className="text-[11px]">Supplier Name</Th>
@@ -242,6 +242,7 @@ export default function PurchaseAccessories() {
                 <Th className="text-[11px]">Mobile No</Th>
                 <Th className="text-[11px]">Vehicle No</Th>
                 <Th className="text-[11px]">Status</Th>
+                 <Th className="w-16 text-center text-[11px]">Action</Th>
               </Tr>
             </THead>
 
@@ -266,16 +267,7 @@ export default function PurchaseAccessories() {
                       {indexOfFirstItem + index + 1}
                     </Td>
 
-                    {/* Action Column - Down Arrow Icon */}
-                    <Td className="py-3 text-center">
-                      <button
-                        onClick={() => handleAction(item)}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 text-gray-600 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
-                        title="View Details"
-                      >
-                        <ChevronDownIcon className="h-4 w-4" />
-                      </button>
-                    </Td>
+                  
 
                     <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
                       {item.purchaseDate}
@@ -337,6 +329,16 @@ export default function PurchaseAccessories() {
                       >
                         {item.status}
                       </span>
+                    </Td>
+                      {/* Action Column - Down Arrow Icon */}
+                    <Td className="py-3 text-center">
+                      <button
+                        onClick={() => handleAction(item)}
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 text-gray-600 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800"
+                        title="View Details"
+                      >
+                        <ChevronDownIcon className="h-4 w-4" />
+                      </button>
                     </Td>
                   </Tr>
                 );

@@ -619,7 +619,7 @@ export default function AccessoriesItem() {
                   />
                 </Th>
                 <Th className="w-12 text-center text-[11px]">SR NO.</Th>
-                <Th className="w-16 text-center text-[11px]">Action</Th>
+             
                 <Th className="text-[11px]">Type</Th>
                 <Th className="text-[11px]">Item</Th>
                 <Th className="text-[11px]">Code No</Th>
@@ -635,6 +635,7 @@ export default function AccessoriesItem() {
                 <Th className="text-right text-[11px]">MRP</Th>
                 <Th className="text-[11px]">Barcode</Th>
                 <Th className="text-center text-[11px]">Opening Stock</Th>
+                   <Th className="w-16 text-center text-[11px]">Action</Th>
               </Tr>
             </THead>
 
@@ -659,7 +660,54 @@ export default function AccessoriesItem() {
                       {indexOfFirstItem + index + 1}
                     </Td>
 
-                    {/* Action Column - Dropdown Menu */}
+                  
+
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.type}
+                    </Td>
+                    <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">
+                      {item.item}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.codeNo}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.shortName}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.hsnCode}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.taxSlab}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.listOfGroup}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.unit}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.modelType}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.vehicleType}
+                    </Td>
+                    <Td className="py-3 text-right text-[12px] text-gray-700 dark:text-gray-300">
+                      ₹{item.purchasePrice}
+                    </Td>
+                    <Td className="py-3 text-right text-[12px] text-gray-700 dark:text-gray-300">
+                      ₹{item.salesPrice}
+                    </Td>
+                    <Td className="py-3 text-right text-[12px] text-gray-700 dark:text-gray-300">
+                      ₹{item.mrp}
+                    </Td>
+                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
+                      {item.barcode}
+                    </Td>
+                    <Td className="py-3 text-center text-[12px] font-medium text-gray-900 dark:text-white">
+                      {item.openingStock}
+                    </Td>
+                      {/* Action Column - Dropdown Menu */}
                     <Td className="py-3 text-center">
                       <Menu
                         as="div"
@@ -716,52 +764,6 @@ export default function AccessoriesItem() {
                           </MenuItems>
                         </Transition>
                       </Menu>
-                    </Td>
-
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.type}
-                    </Td>
-                    <Td className="py-3 text-[12px] font-medium text-gray-900 dark:text-white">
-                      {item.item}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.codeNo}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.shortName}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.hsnCode}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.taxSlab}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.listOfGroup}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.unit}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.modelType}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.vehicleType}
-                    </Td>
-                    <Td className="py-3 text-right text-[12px] text-gray-700 dark:text-gray-300">
-                      ₹{item.purchasePrice}
-                    </Td>
-                    <Td className="py-3 text-right text-[12px] text-gray-700 dark:text-gray-300">
-                      ₹{item.salesPrice}
-                    </Td>
-                    <Td className="py-3 text-right text-[12px] text-gray-700 dark:text-gray-300">
-                      ₹{item.mrp}
-                    </Td>
-                    <Td className="py-3 text-[12px] text-gray-700 dark:text-gray-300">
-                      {item.barcode}
-                    </Td>
-                    <Td className="py-3 text-center text-[12px] font-medium text-gray-900 dark:text-white">
-                      {item.openingStock}
                     </Td>
                   </Tr>
                 );
