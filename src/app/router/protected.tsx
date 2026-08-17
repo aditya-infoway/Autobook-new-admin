@@ -32,7 +32,39 @@ const protectedRoutes: RouteObject = {
               path: "home",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/dashboards/home/crm-analytics")
+                  await import("@/app/pages/dashboards/home/dashboard")
+                ).default,
+              }),
+            },
+            {
+              path: "dashboard",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/dashboards/home/dashboard")
+                ).default,
+              }),
+            },
+            {
+              path: "inventory",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/dashboards/home/inventory")
+                ).default,
+              }),
+            },
+            {
+              path: "employee",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/dashboards/home/employee")
+                ).default,
+              }),
+            },
+            {
+              path: "employee-lead", // Add this route
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/dashboards/home/EmployeeLead")
                 ).default,
               }),
             },
@@ -49,21 +81,8 @@ const protectedRoutes: RouteObject = {
             {
               path: "category",
               lazy: async () => ({
-                Component: (await import("@/app/pages/master/category")).default,
-              }),
-            },
-            {
-              path: "bom",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/master/bom/form")).default,
-              }),
-            },
-            {
-              path: "product-series",
-              lazy: async () => ({
-                Component: (
-                  await import("@/app/pages/master/product-series")
-                ).default,
+                Component: (await import("@/app/pages/master/category"))
+                  .default,
               }),
             },
             {
@@ -79,29 +98,105 @@ const protectedRoutes: RouteObject = {
               }),
             },
             {
-              path: "variant-structure",
+              path: "variantprice",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/variantprice"))
+                  .default,
+              }),
+            },
+            {
+              path: "colour",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/colour")).default,
+              }),
+            },
+            {
+              path: "createitem",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/createitem"))
+                  .default,
+              }),
+            },
+            {
+              path: "schemetype",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/schemetype"))
+                  .default,
+              }),
+            },
+            {
+              path: "scheme",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/scheme")).default,
+              }),
+            },
+            {
+              path: "service",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/service")).default,
+              }),
+            },
+            {
+              path: "exchangebonus",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/exchangebonus"))
+                  .default,
+              }),
+            },
+            {
+              path: "city",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/master/city")).default,
+              }),
+            },
+
+            // ===========================
+            // Enquiry Setting
+            // ===========================
+            {
+              path: "enquirysetting",
               children: [
                 {
                   index: true,
+                  element: <Navigate to="enquirytype" replace />,
+                },
+                {
+                  path: "enquirytype",
                   lazy: async () => ({
                     Component: (
-                      await import("@/app/pages/master/variant-structure")
+                      await import("@/app/pages/master/enquirysetting/enquirytype")
                     ).default,
                   }),
                 },
                 {
-                  path: "create",
+                  path: "enquirysource",
                   lazy: async () => ({
                     Component: (
-                      await import("@/app/pages/master/variant-structure/form")
+                      await import("@/app/pages/master/enquirysetting/enquirysource")
                     ).default,
                   }),
                 },
                 {
-                  path: "edit/:id",
+                  path: "profession",
                   lazy: async () => ({
                     Component: (
-                      await import("@/app/pages/master/variant-structure/form")
+                      await import("@/app/pages/master/enquirysetting/profession")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "banker",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/master/enquirysetting/banker")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "finance",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/master/enquirysetting/finance")
                     ).default,
                   }),
                 },
@@ -110,181 +205,83 @@ const protectedRoutes: RouteObject = {
           ],
         },
 
-
-
         {
-          path: "master/brand",
+          path: "accessoriesmaster",
           children: [
             {
               index: true,
-              element: <Navigate to="/master/brand/body-type" replace />,
-            },
-            {
-              path: "body-type",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/master/brand/body-type")).default,
-              }),
-            },
-            {
-              path: "axle-brand",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/master/brand/axle-brand")).default,
-              }),
-            },
-            {
-              path: "hydraulic-brand",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/master/brand/hydraulic-brand")).default,
-              }),
-            },
-            {
-              path: "tyre-brand",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/master/brand/tyre-brand")).default,
-              }),
-            },
-          ],
-        },
-
-           {
-          path: "enquiry-master",
-          children: [
-            {
-              index: true,
-              element: <Navigate to="/enquiry-master/enquiry-type" replace />,
+              element: (
+                <Navigate to="/accessoriesmaster/accessoriesitem" replace />
+              ),
             },
 
             {
-              path: "enquiry-type",
+              path: "accessoriesitem",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/enquiry-master/enquiry-type/index")
+                  await import("@/app/pages/accessoriesmaster/accessoriesitem")
                 ).default,
               }),
             },
 
             {
-              path: "enquiry-source",
+              path: "barcodemanager",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/enquiry-master/enquiry-source")
+                  await import("@/app/pages/accessoriesmaster/barcodemanager")
                 ).default,
               }),
             },
 
             {
-              path: "profession",
+              path: "purchaseaccessories",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/enquiry-master/profession")
+                  await import("@/app/pages/accessoriesmaster/purchaseaccessories")
                 ).default,
               }),
             },
 
             {
-              path: "enquiry-status",
+              path: "addpurchasebill",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/enquiry-master/enquiry-status")
+                  await import("@/app/pages/accessoriesmaster/addpurchasebill")
                 ).default,
               }),
             },
 
             {
-              path: "banker",
+              path: "accessoriespurchaseitem",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/enquiry-master/banker")
+                  await import("@/app/pages/accessoriesmaster/accessoriespurchaseitem")
                 ).default,
               }),
             },
 
             {
-              path: "finance",
+              path: "accessoriesstockreport",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/enquiry-master/finance")
-                ).default,
-              }),
-            },
-          ],
-        },
-
-        {
-          path: "item-master",
-          children: [
-            {
-              index: true,
-              lazy: async () => ({
-                Component: (await import("@/app/pages/item-master")).default,
-              }),
-            },
-            {
-              path: "create",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/item-master/form")).default,
-              }),
-            },
-            {
-              path: "edit/:id",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/item-master/form")).default,
-              }),
-            },
-          ],
-        },
-        {
-          path: "item-master",
-          children: [
-            {
-              index: true,
-              element: <Navigate to="/item-master/item-list" replace />,
-            },
-
-            {
-              path: "item-list",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/item-master")).default,
-              }),
-            },
-
-            {
-              path: "create",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/item-master/form")).default,
-              }),
-            },
-
-            {
-              path: "edit/:id",
-              lazy: async () => ({
-                Component: (await import("@/app/pages/item-master/form")).default,
-              }),
-            },
-
-            {
-              path: "barcode-manager",
-              lazy: async () => ({
-                Component: (
-                  await import("@/app/pages/item-master/barcode-manager")
+                  await import("@/app/pages/accessoriesmaster/accessoriesstockreport")
                 ).default,
               }),
             },
 
             {
-              path: "item-category",
+              path: "stockreport/:id",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/item-master/iteam-category")
+                  await import("@/app/pages/accessoriesmaster/stockreport")
                 ).default,
               }),
             },
-
             {
-              path: "item-group",
+              path: "fullstock/:id",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/item-master/iteam-group")
+                  await import("@/app/pages/accessoriesmaster/fullstock")
                 ).default,
               }),
             },
@@ -317,37 +314,37 @@ const protectedRoutes: RouteObject = {
             },
 
             {
-              path: "cash-payment",
+              path: "cashpayment",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/accounting-master/cash-payment")
+                  await import("@/app/pages/accounting-master/cashpayment")
                 ).default,
               }),
             },
 
             {
-              path: "bank-payment",
+              path: "bankpayment",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/accounting-master/bank-payment")
+                  await import("@/app/pages/accounting-master/bankpayment")
                 ).default,
               }),
             },
 
             {
-              path: "cash-receipt",
+              path: "cashreceipt",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/accounting-master/cash-receipt")
+                  await import("@/app/pages/accounting-master/cashreceipt")
                 ).default,
               }),
             },
 
             {
-              path: "bank-receipt",
+              path: "bankreceipt",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/accounting-master/bank-receipt")
+                  await import("@/app/pages/accounting-master/bankreceipt")
                 ).default,
               }),
             },
@@ -362,100 +359,286 @@ const protectedRoutes: RouteObject = {
             },
 
             {
-              path: "journal-entry",
+              path: "journalentries",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/accounting-master/journal-entry")
+                  await import("@/app/pages/accounting-master/journalentries")
                 ).default,
               }),
             },
             {
-              path: "cash-book",
+              path: "cash-bankregister",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="cashbook" replace />,
+                },
+                {
+                  path: "cashbook",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/accounting-master/cash-bankregister/cashbook")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "bankbook",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/accounting-master/cash-bankregister/bankbook")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+            {
+              path: "booking",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="bookingbalance" replace />,
+                },
+                {
+                  path: "bookingbalance",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/accounting-master/booking/bookingbalance")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "paymenthistory/:id",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/accounting-master/booking/paymenthistory")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+
+            {
+              path: "ledger",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="ledgerreport" replace />,
+                },
+                {
+                  path: "ledgerreport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/accounting-master/ledger/ledgerreport")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "ledgerdetail",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/accounting-master/ledger/ledgerdetail")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+
+        {
+          path: "followup",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/followup/todayfollowup" replace />,
+            },
+            {
+              path: "todayfollowup",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/followup/todayfollowup"))
+                  .default,
+              }),
+            },
+            {
+              path: "followuphistory/:id",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/accounting-master/cash-book")
+                  await import("@/app/pages/followup/followuphistory")
                 ).default,
               }),
             },
             {
-              path: "bank-book",
+              path: "follow-up/:id",
               lazy: async () => ({
-                Component: (
-                  await import("@/app/pages/accounting-master/bank-book")
-                ).default,
+                Component: (await import("@/app/pages/followup/follow-up"))
+                  .default,
               }),
             },
           ],
         },
+
         {
           path: "purchase-master",
           children: [
             {
               index: true,
               element: (
-                <Navigate to="/purchase-master/purchase-register" replace />
+                <Navigate to="/purchase-master/purchaseregister" replace />
               ),
             },
 
             {
-              path: "purchase-register",
+              path: "purchaseregister",
               children: [
                 {
                   index: true,
                   lazy: async () => ({
                     Component: (
-                      await import(
-                        "@/app/pages/purchase-master/purchase-register"
-                      )
+                      await import("@/app/pages/purchase-master/purchaseregister")
                     ).default,
                   }),
                 },
                 {
-                  path: "create",
+                  path: "addpurchaseregister",
                   lazy: async () => ({
                     Component: (
-                      await import(
-                        "@/app/pages/purchase-master/purchase-register/form"
-                      )
+                      await import("@/app/pages/purchase-master/addpurchaseregister")
                     ).default,
                   }),
                 },
                 {
-                  path: "edit/:id",
+                  path: "purchaseitem/:id",
                   lazy: async () => ({
                     Component: (
-                      await import(
-                        "@/app/pages/purchase-master/purchase-register/form"
-                      )
+                      await import("@/app/pages/purchase-master/purchaseitem")
                     ).default,
                   }),
                 },
               ],
             },
             {
-              path: "purchase-order",
+              path: "purchaseorder",
               children: [
                 {
                   index: true,
                   lazy: async () => ({
                     Component: (
-                      await import(
-                        "@/app/pages/purchase-master/purchase-order"
-                      )
+                      await import("@/app/pages/purchase-master/purchaseorder")
                     ).default,
                   }),
                 },
                 {
-                  path: "create",
+                  path: "purchaseorderlist/:id",
                   lazy: async () => ({
                     Component: (
-                      await import(
-                        "@/app/pages/purchase-master/purchase-order"
-                      )
+                      await import("@/app/pages/purchase-master/purchaseorderlist")
                     ).default,
                   }),
                 },
               ],
+            },
+            {
+              path: "purchaseimport",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/purchase-master/purchaseimport")
+                ).default,
+              }),
+            },
+
+            {
+              path: "goodscontrol",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="inventory" replace />,
+                },
+                {
+                  path: "inventory",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/purchase-master/goodscontrol/inventory")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "allotedinventory",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/purchase-master/goodscontrol/allotedinventory")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "soldoutstock",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/purchase-master/goodscontrol/soldoutstock")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+            {
+              path: "stocktransfer",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="vehiclestocktransfer" replace />,
+                },
+                {
+                  path: "vehiclestocktransfer",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/purchase-master/stocktransfer/vehiclestocktransfer")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "addvehiclestocktransfer",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/purchase-master/stocktransfer/addvehiclestocktransfer")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: "sales-master",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/sales-master/salesregister" replace />,
+            },
+
+            {
+              path: "salesregister",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/sales-master/salesregister")
+                ).default,
+              }),
+            },
+
+            {
+              path: "salesregisterdeatil/:id",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/sales-master/salesregisterdeatil")
+                ).default,
+              }),
+            },
+
+            {
+              path: "accessoriessales",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/sales-master/accessoriessales")
+                ).default,
+              }),
             },
           ],
         },
@@ -464,19 +647,221 @@ const protectedRoutes: RouteObject = {
           children: [
             {
               index: true,
+              element: <Navigate to="/stock-report/dynamicreport" replace />,
+            },
+            {
+              path: "dynamicreport",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/stock-report")
+                  await import("@/app/pages/stock-report/dynamicreport")
                 ).default,
               }),
             },
             {
-              path: ":itemId",
+              path: "totalenquiry/:id",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/stock-report/StockReportDetailPage")
+                  await import("@/app/pages/stock-report/totalenquiry")
                 ).default,
               }),
+            },
+            {
+              path: "pending/:id",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/stock-report/pending"))
+                  .default,
+              }),
+            },
+            {
+              path: "lost/:id",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/stock-report/lost"))
+                  .default,
+              }),
+            },
+            {
+              path: "alloted/:id",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/stock-report/alloted"))
+                  .default,
+              }),
+            },
+            {
+              path: "sold/:id",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/stock-report/sold"))
+                  .default,
+              }),
+            },
+            {
+              path: "regiprocess/:id",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/stock-report/regiprocess")
+                ).default,
+              }),
+            },
+
+            {
+              path: "insurance",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <Navigate
+                      to="/stock-report/insurance/dueinsurance"
+                      replace
+                    />
+                  ),
+                },
+                {
+                  path: "dueinsurance",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/insurance/dueinsurance")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+
+            {
+              path: "report",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <Navigate to="/stock-report/report/enquirysource" replace />
+                  ),
+                },
+                {
+                  path: "enquirysource",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/report/enquirysource")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "enquirystatus",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/report/enquirystatus")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "birthdayreport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/report/birthdayreport")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+
+            {
+              path: "analysis",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <Navigate
+                      to="/stock-report/analysis/feedbackactivity "
+                      replace
+                    />
+                  ),
+                },
+                {
+                  path: "feedbackactivity",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/feedbackactivity")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "hypothicationreport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/hypothicationreport")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "insurancereport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/insurancereport")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "exchangereport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/exchangereport")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "duepaymentreport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/duepaymentreport")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "schemeregister",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/schemeregister")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "customertracking",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/customertracking")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "trackingdetails/:id",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/trackingdetails")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "deliveryregister",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/deliveryregister")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "vehicleserialregister",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/vehicleserialregister")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "paymentregister",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/stock-report/analysis/paymentregister")
+                    ).default,
+                  }),
+                },
+              ],
             },
           ],
         },
@@ -486,38 +871,91 @@ const protectedRoutes: RouteObject = {
           children: [
             {
               index: true,
-              element: <Navigate to="/user-master/accounts" replace />,
+              element: <Navigate to="/user-master/account" replace />,
             },
             {
-              path: "accounts",
+              path: "account",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/user-master/account"))
+                  .default,
+              }),
+            },
+            {
+              path: "createaccount",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/user-master/create-account")
+                  await import("@/app/pages/user-master/createaccount")
                 ).default,
               }),
             },
             {
-              path: "accounts/create",
+              path: "createemployee",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/user-master/create-account/form")
-                ).AccountForm,
-              }),
-            },
-            {
-              path: "accounts/edit/:id",
-              lazy: async () => ({
-                Component: (
-                  await import("@/app/pages/user-master/create-account/form")
-                ).AccountForm,
-              }),
-            },
-            {
-              path: "create-employee",
-              lazy: async () => ({
-                Component: (
-                  await import("@/app/pages/user-master/create-employee")
+                  await import("@/app/pages/user-master/createemployee")
                 ).default,
+              }),
+            },
+            {
+              path: "warehouse",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/user-master/warehouse"))
+                  .default,
+              }),
+            },
+          ],
+        },
+        {
+          path: "broker-master",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/broker-master/broker" replace />,
+            },
+            {
+              path: "broker",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/broker-master/broker"))
+                  .default,
+              }),
+            },
+            {
+              path: "stocktransfer",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/broker-master/stocktransfer")
+                ).default,
+              }),
+            },
+            {
+              path: "addstocktransfer",
+              lazy: async () => ({
+                Component: (
+                  await import("@/app/pages/broker-master/addstocktransfer")
+                ).default,
+              }),
+            },
+          ],
+        },
+        {
+          path: "integration",
+          children: [
+            {
+              index: true,
+              element: <Navigate to="/integration-master/marketing" replace />,
+            },
+            {
+              path: "marketing",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/integration/marketing"))
+                  .default,
+              }),
+            },
+             {
+              path: "templateeditor",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/integration/templateeditor"))
+                  .default,
               }),
             },
           ],
@@ -527,56 +965,181 @@ const protectedRoutes: RouteObject = {
           children: [
             {
               index: true,
-              element: <Navigate to="/lead-master/enquiry" replace />,
+              element: <Navigate to="/lead-master/leadbuilder" replace />,
             },
             {
-              path: "enquiry",
+              path: "leadbuilder",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/lead-master/leadbuilder"))
+                  .default,
+              }),
+            },
+            {
+              path: "follow-up/:id",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/lead-master/follow-up"))
+                  .default,
+              }),
+            },
+            {
+              path: "createorder/:id",
+              lazy: async () => ({
+                Component: (await import("@/app/pages/lead-master/createorder"))
+                  .default,
+              }),
+            },
+            {
+              path: "leadbookingreport",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/lead-master/enquiry")
+                  await import("@/app/pages/lead-master/leadbookingreport")
                 ).default,
               }),
             },
-            // {
-            //   path: "enquiry/create",
-            //   lazy: async () => ({
-            //     Component: (
-            //       await import("@/app/pages/lead-master/enquiry/form")
-            //     ).EnquiryForm,
-            //   }),
-            // },
-            // {
-            //   path: "enquiry/edit/:id",
-            //   lazy: async () => ({
-            //     Component: (
-            //       await import("@/app/pages/lead-master/enquiry/form")
-            //     ).EnquiryForm,
-            //   }),
-            // },
             {
-              path: "quotation",
+              path: "bookingrefund",
               lazy: async () => ({
                 Component: (
-                  await import("@/app/pages/lead-master/quotation")
+                  await import("@/app/pages/lead-master/bookingrefund")
                 ).default,
               }),
             },
-            // {
-            //   path: "quotation/create",
-            //   lazy: async () => ({
-            //     Component: (
-            //       await import("@/app/pages/lead-master/quotation/form")
-            //     ).QuotationForm,
-            //   }),
-            // },
-            // {
-            //   path: "quotation/edit/:id",
-            //   lazy: async () => ({
-            //     Component: (
-            //       await import("@/app/pages/lead-master/quotation/form")
-            //     ).QuotationForm,
-            //   }),
-            // },
+            {
+              path: "oldquoterecord",
+              children: [
+                {
+                  index: true,
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/oldquoterecord")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "oldquotehistory/:id",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/oldquotehistory")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+            {
+              path: "testdrive",
+              children: [
+                {
+                  index: true,
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/testdrive")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "testdrivedetails/:id",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/testdrivedetails")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+            {
+              path: "eventmaster",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="createevent" replace />,
+                },
+                {
+                  path: "createevent",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/eventmaster/createevent")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "eventregister",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/eventmaster/eventregister")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "eventregisterdetails/:id",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/eventmaster/eventregisterdetails")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+            {
+              path: "allot",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="vehicleincharge" replace />,
+                },
+                {
+                  path: "vehicleincharge",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/allot/vehicleincharge")
+                    ).default,
+                  }),
+                },
+
+                {
+                  path: "accessoriesallot",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/allot/accessoriesallot")
+                    ).default,
+                  }),
+                },
+
+                {
+                  path: "accessoriesallotdetail/:id",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/allot/accessoriesallotdetail")
+                    ).default,
+                  }),
+                },
+                {
+                  path: "vehicleverify",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/allot/vehicleverify")
+                    ).default,
+                  }),
+                },
+              ],
+            },
+
+            {
+              path: "delivery",
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="deliveryreport" replace />,
+                },
+                {
+                  path: "deliveryreport",
+                  lazy: async () => ({
+                    Component: (
+                      await import("@/app/pages/lead-master/delivery/deliveryreport")
+                    ).default,
+                  }),
+                },
+              ],
+            },
           ],
         },
       ],
@@ -590,7 +1153,7 @@ const protectedRoutes: RouteObject = {
           lazy: async () => ({
             Component: (await import("@/app/pages/settings/Layout")).default,
           }),
-          children: [
+          children: [ 
             {
               index: true,
               element: <Navigate to="/settings/general" />,
